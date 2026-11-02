@@ -1,0 +1,19 @@
+[Unit]
+Description=OpenPak PS5 trophy service (ps5-trophy): /api/trophy/ on m.np.playstation.com
+
+[Container]
+ContainerName=openpak-ps5-trophy
+Image=ghcr.io/openpak/ps5-trophy:latest
+AutoUpdate=registry
+Network=openpak.network
+# IP= is assigned with pin-ips.sh --apply when this unit is first deployed.
+EnvironmentFile=/etc/openpak/.env
+Environment=PS5_ADDR=:8080
+Environment=PS5_TROPHY_SETS_DIR=/sets
+Volume=/var/lib/openpak/ps5-trophy/sets:/sets:ro
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

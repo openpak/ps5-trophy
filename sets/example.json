@@ -1,0 +1,16 @@
+{
+  "npCommunicationId": "NPWR00000_00",
+  "npServiceName": "trophy2",
+  "trophySetVersion": "01.00",
+  "trophyTitleName": "Example Title",
+  "trophyTitleDetail": "Sample set; copy and edit.",
+  "trophyTitleIconUrl": "",
+  "trophyTitlePlatform": "PS5",
+  "groups": [
+    {"trophyGroupId": "default", "trophyGroupName": "Example Title", "trophyGroupDetail": "", "trophyGroupIconUrl": "",
+     "trophies": [
+       {"trophyId": 0, "trophyType": "platinum", "trophyName": "Everything", "trophyDetail": "Earn all trophies."},
+       {"trophyId": 1, "trophyType": "bronze", "trophyName": "First step", "trophyDetail": "Start the game."}
+     ]}
+  ]
+}
