@@ -7,7 +7,7 @@ Image=ghcr.io/openpak/ps5-trophy:latest
 AutoUpdate=registry
 Network=openpak.network
 # IP= is assigned with pin-ips.sh --apply when this unit is first deployed.
-EnvironmentFile=/etc/openpak/.env
+EnvironmentFile=/etc/openpak/ps5.env
 Environment=PS5_ADDR=:8080
 Environment=PS5_TROPHY_SETS_DIR=/sets
 Volume=/var/lib/openpak/ps5-trophy/sets:/sets:ro
