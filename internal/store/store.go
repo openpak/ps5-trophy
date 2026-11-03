@@ -127,7 +127,7 @@ func (s *Set) Validate() error {
 }
 
 // LoadDir adds every *.json file in dir to st.
-func LoadDir(st Store, dir string) (int, error) {
+func LoadDir(st interface{ AddSet(Set) error }, dir string) (int, error) {
 	files, err := filepath.Glob(filepath.Join(dir, "*.json"))
 	if err != nil {
 		return 0, err
@@ -142,7 +142,7 @@ func LoadDir(st Store, dir string) (int, error) {
 }
 
 // LoadFile adds the set in one JSON file to st.
-func LoadFile(st Store, path string) error {
+func LoadFile(st interface{ AddSet(Set) error }, path string) error {
 	b, err := os.ReadFile(path)
 	if err != nil {
 		return err

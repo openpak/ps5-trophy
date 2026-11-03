@@ -24,7 +24,7 @@ Defaults: `limit` 800 for titles, 200 for trophies.
 
 Trophy-set definitions are JSON files (one set each) loaded from `PS5_TROPHY_SETS_DIR`: `npCommunicationId`,
 `trophyTitleName`, `groups[{trophyGroupId, trophyGroupName, trophies[...]}]` (see `sets/example.json`). The group
-id `default` is the base game; `all` is reserved. Earnings are in memory behind the `store.Store` interface.
+id `default` is the base game; `all` is reserved. Earnings are stored in the achievements core behind the `store.Store` interface (`Achievements`); `Memory` is development only.
 
 How the console reports an unlock is unknown. Until captured on hardware, `POST /internal/unlock` records one:
 

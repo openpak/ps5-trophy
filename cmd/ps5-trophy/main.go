@@ -29,9 +29,24 @@ func main() {
 		log.Error("token key", "err", err)
 		os.Exit(2)
 	}
-	st := store.NewMemory()
+	var st store.Store
+	var sets interface{ AddSet(store.Set) error }
+	if cfg.DevMemory {
+		log.Warn("PS5_DEV_MEMORY=1: earned trophies are kept in memory and lost on restart (development only)")
+		m := store.NewMemory()
+		st, sets = m, m
+	} else {
+		ach, conn, err := store.DialAchievements(cfg.AchievementsAddr, cfg.AchievementsKey, log)
+		if err != nil {
+			log.Error("achievements", "err", err)
+			os.Exit(2)
+		}
+		defer conn.Close()
+		st, sets = ach, ach
+		log.Info("earned trophies stored in the achievements core", "addr", cfg.AchievementsAddr)
+	}
 	if cfg.SetsDir != "" {
-		n, err := store.LoadDir(st, cfg.SetsDir)
+		n, err := store.LoadDir(sets, cfg.SetsDir)
 		if err != nil {
 			log.Error("load trophy sets", "err", err)
 			os.Exit(2)

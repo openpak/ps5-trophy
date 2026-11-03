@@ -44,8 +44,11 @@ docker build -t ps5-trophy .
 | `PS5_LOG_LEVEL` | no | `info` | accepted (ps5-common), logging is info-level |
 | `PS5_TROPHY_SETS_DIR` | no | | directory of trophy-set `*.json` files, read at start |
 | `PS5_TROPHY_INTERNAL_KEY` | no | | enables `POST /internal/unlock`; never route it through Traefik |
+| `PS5_ACHIEVEMENTS_ADDR` | yes | | achievements core gRPC address, e.g. `openpak-achievements:20221` |
+| `PS5_ACHIEVEMENTS_KEY` | yes | | the achievements core internal key, at least 32 bytes |
+| `PS5_DEV_MEMORY` | no | | `1`: earnings in memory instead of the core (local development only) |
 
-Other shared `PS5_*` variables are accepted and unused. Storage is in memory: earned trophies are lost on restart.
+Other shared `PS5_*` variables are accepted and unused. Earned trophies are stored in the achievements core (network `np`, title = the npCommunicationId, achievement id = the trophy id, grade = the trophy type); trophy-set definitions stay in the JSON files. The service exits without the core unless `PS5_DEV_MEMORY=1`.
 
 ## Adding a title
 

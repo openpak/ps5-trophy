@@ -4,6 +4,7 @@ package api
 
 import (
 	"crypto/subtle"
+	"errors"
 	"log/slog"
 	"net/http"
 	"strconv"
@@ -328,7 +329,11 @@ func (s *Server) internalUnlock(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if err := s.St.Unlock(req.AccountID, req.NpCommunicationID, req.TrophyID, s.Now()); err != nil {
-		httpx.WriteError(w, http.StatusNotFound, 2240526, err.Error())
+		if errors.Is(err, store.ErrNoSet) || errors.Is(err, store.ErrNoTrophy) {
+			httpx.WriteError(w, http.StatusNotFound, 2240526, err.Error())
+		} else {
+			httpx.WriteError(w, http.StatusBadGateway, 2240001, "Trophy storage unavailable")
+		}
 		return
 	}
 	httpx.WriteJSON(w, http.StatusOK, map[string]any{"status": "ok"})
